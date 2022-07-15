@@ -1,4 +1,8 @@
 # Prerequisites
+log/
+build/
+project1/build/
+project1/log/
 *.d
 
 # Compiled Object files
