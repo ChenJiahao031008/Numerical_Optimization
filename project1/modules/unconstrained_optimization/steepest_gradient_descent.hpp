@@ -12,9 +12,10 @@ private:
     double c;
     double epsilon;
     int max_iters;
+    bool verbose;
     CostFunction* cost_function;
 public:
-    GradientDescent() : tau(1.0), c(0.5), epsilon(1e-6), max_iters(5000) {};
+    GradientDescent() : tau(1.0), c(0.5), epsilon(1e-6), max_iters(100000), verbose(true){};
 
     GradientDescent(double tau_, double c_, double epsilon_)
         : tau(tau_), c(c_), epsilon(epsilon_) {};
@@ -22,12 +23,11 @@ public:
     ~GradientDescent() = default;
 
     inline void SetCostFunction(CostFunction *cost) { cost_function = cost; };
-
     inline void SetTau(double tau_) { tau = tau_; };
-
     inline void SetC(double c_) { c = c_; };
-
     inline void SetEpsilon(double epsilon_) { epsilon = epsilon_; };
+    inline void SetMaxIters(int max_iters_) { max_iters = max_iters_; };
+    inline void SetVerbose(bool verbose_) { verbose = verbose_; };
 
     Eigen::VectorXd Solve();
 

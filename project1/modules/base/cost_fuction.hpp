@@ -14,7 +14,7 @@ protected:
     Eigen::VectorXd x;
 
 public:
-    CostFunction(Eigen::VectorXd &param, int size) : N(size), x(param){};
+    CostFunction(Eigen::VectorXd &param) : N(param.rows()), x(param){};
 
     virtual ~CostFunction() {};
 
