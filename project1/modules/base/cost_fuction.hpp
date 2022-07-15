@@ -20,9 +20,9 @@ public:
 
     virtual ~CostFunction() {};
 
-    virtual Eigen::VectorXd ComputeFunction(const Eigen::VectorXd &x) = 0;
+    virtual double ComputeFunction(const Eigen::VectorXd &x) = 0;
 
-    virtual Eigen::MatrixXd ComputeJacobian(const Eigen::VectorXd &x) = 0;
+    virtual Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) = 0;
 
     Eigen::VectorXd GetInitParam() { return x; };
 

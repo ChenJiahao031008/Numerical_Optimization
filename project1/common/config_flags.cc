@@ -1,9 +1,9 @@
 #include "config_flags.hpp"
 namespace common {
 
-// DEFINE_string(example_str,
-//               "Default parameters",
-//               "Fill in the notes here.");
+DEFINE_string(iter_recorder_file,
+              "../results/recorder.txt",
+              "The file to save the iteration records.");
 
 
 }  // namespace common

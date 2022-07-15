@@ -1,5 +1,7 @@
 #pragma once
 
+#include <ostream>
+#include <fstream>
 #include "../../common/logger.hpp"
 #include "../base/cost_fuction.hpp"
 
@@ -35,6 +37,7 @@ public:
     inline void SetVerbose(bool verbose_) { verbose = verbose_; };
 
     Eigen::VectorXd Solve();
+    Eigen::VectorXd Solve(std::ofstream &out);
 
 private:
     bool ArmijoCondition(Eigen::VectorXd &x);

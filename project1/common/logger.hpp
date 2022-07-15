@@ -24,7 +24,7 @@
 #include <stdlib.h>
 #include <cstdarg>
 #include <string>
-// #include "config_flags.hpp"
+#include "config_flags.hpp"
 
 #define MODULE_NAME "MAIN_MODULE"
 

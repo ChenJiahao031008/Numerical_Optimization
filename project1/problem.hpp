@@ -19,23 +19,21 @@ public:
 
     ~Rosenbrock() = default;
 
-    Eigen::VectorXd ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::VectorXd &x) override
     {
-        Eigen::VectorXd result(1);
-        result.setZero();
-        result[0] = 0;
+        double result = 0;
         for (size_t i = 0; i < N - 1; ++i)
         {
             double part_1 = x[i + 1] - x[i] * x[i];
             double part_2 = 1 - x[i];
-            result[0] += 100.0 * part_1 * part_1 + part_2 * part_2;
+            result += 100.0 * part_1 * part_1 + part_2 * part_2;
         }
         return result;
     }
 
-    Eigen::MatrixXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
     {
-        Eigen::MatrixXd jacobian(x.rows(), 1);
+        Eigen::VectorXd jacobian(x.rows());
         for (size_t i = 0; i < N; ++i)
         {
             if (i == 0)
@@ -68,23 +66,21 @@ public:
 
     ~Rosenbrock2() = default;
 
-    Eigen::VectorXd ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::VectorXd &x) override
     {
-        Eigen::VectorXd result(1);
-        result.setZero();
-        result[0] = 0;
+        double result = 0;
         for (size_t i = 0; i < N / 2; ++i)
         {
             double part_1 = x[2 * i] * x[2 * i] - x[2 * i + 1];
             double part_2 = x[2 * i] - 1;
-            result[0] += 100.0 * part_1 * part_1 + part_2 * part_2;
+            result += 100.0 * part_1 * part_1 + part_2 * part_2;
         }
         return result;
     }
 
-    Eigen::MatrixXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
     {
-        Eigen::MatrixXd jacobian(x.rows(), 1);
+        Eigen::VectorXd jacobian(x.rows());
         jacobian.setZero();
         for (size_t i = 0; i < N / 2; i++)
         {
@@ -109,17 +105,16 @@ public:
 
     ~Example() = default;
 
-    Eigen::VectorXd ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::VectorXd &x) override
     {
-        Eigen::VectorXd result(1);
-        result.setZero();
-        result[0] = x[0] * x[0] + 2 * x[1] * x[1] - 2 * x[0] * x[1] - 2 * x[1];
+        double result = 0;
+        result = x[0] * x[0] + 2 * x[1] * x[1] - 2 * x[0] * x[1] - 2 * x[1];
         return result;
     }
 
-    Eigen::MatrixXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
     {
-        Eigen::MatrixXd jacobian(x.rows(), 1);
+        Eigen::VectorXd jacobian(x.rows());
         jacobian(0, 0) = 2 * x[0] - 2 * x[1];
         jacobian(1, 0) = 4 * x[1] - 2 * x[0] - 2;
         return jacobian;
@@ -139,18 +134,18 @@ public:
 
     ~Rosenbrock2dExample() = default;
 
-    Eigen::VectorXd ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::VectorXd &x) override
     {
-        Eigen::VectorXd result(1);
+        double result = 0;
         double part_1 = x[0] * x[0] - x[1];
         double part_2 = x[0] - 1;
-        result[0] = 100.0 * part_1 * part_1 + part_2 * part_2;
+        result = 100.0 * part_1 * part_1 + part_2 * part_2;
         return result;
     }
 
-    Eigen::MatrixXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
     {
-        Eigen::MatrixXd jacobian(x.rows(), 1);
+        Eigen::VectorXd jacobian(x.rows());
         jacobian(0, 0) = -2 * (1 - x[0]) - 400 * x[0] * ( x[1] - x[0] * x[0] );
         jacobian(1, 0) = 200 * (x[1] - x[0] * x[0]);
         return jacobian;

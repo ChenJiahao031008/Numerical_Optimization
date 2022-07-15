@@ -3,7 +3,7 @@
 
 namespace common {
 
-// DECLARE_string(example_file);
+DECLARE_string(iter_recorder_file);
 
 }  // namespace common
 
