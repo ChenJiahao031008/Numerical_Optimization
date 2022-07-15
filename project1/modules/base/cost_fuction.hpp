@@ -13,6 +13,8 @@ protected:
 
     Eigen::VectorXd x;
 
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+
 public:
     CostFunction(Eigen::VectorXd &param) : N(param.rows()), x(param){};
 

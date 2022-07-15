@@ -12,7 +12,8 @@ Eigen::VectorXd GradientDescent::Solve(){
     int iter_count = 0;
     while (delta >= epsilon && iter_count < max_iters)
     {
-        while (ArmijoCondition(x)){ tau = tau / 2.0; }
+        tau = init_tau;
+        while (ArmijoCondition(x)){ tau = tau * 0.5; }
         Eigen::MatrixXd cur_d = cost_function->ComputeJacobian(x);
         x = x - tau * cur_d;
         delta = cur_d.norm();
@@ -32,12 +33,7 @@ bool GradientDescent::ArmijoCondition(Eigen::VectorXd &x)
     Eigen::VectorXd x_k0 = cost_function->ComputeFunction(x);
     Eigen::VectorXd x_k1 = cost_function->ComputeFunction(x - d * tau);
     Eigen::VectorXd left = x_k1 - x_k0;
-    Eigen::VectorXd right = - c * tau * d.transpose() * d;
-    // AINFO << "ComputeJacobian : " << d.transpose();
-    // AINFO << "ComputeFunction x_k1 : " << x_k1;
-    // AINFO << "left = x_k1 - x_k0 : " << left;
-    // AINFO << "right = " << right;
-    // AINFO << "current tau : " << tau;
+    Eigen::VectorXd right = -c * d.transpose() * d * tau;
     if ( left[0] >= right[0] )
         return true;
     else

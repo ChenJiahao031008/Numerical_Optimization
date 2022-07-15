@@ -142,8 +142,8 @@ public:
     Eigen::VectorXd ComputeFunction(const Eigen::VectorXd &x) override
     {
         Eigen::VectorXd result(1);
-        double part_1 = x[1] - x[0] * x[0];
-        double part_2 = 1 - x[0];
+        double part_1 = x[0] * x[0] - x[1];
+        double part_2 = x[0] - 1;
         result[0] = 100.0 * part_1 * part_1 + part_2 * part_2;
         return result;
     }
