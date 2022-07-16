@@ -7,6 +7,24 @@
 #include "../modules/unconstrained_optimization/steepest_gradient_descent.hpp"
 #include "../problem.hpp"
 
+TEST(TestUFreeOpt, TestSGDRosenbrock)
+{
+    Eigen::VectorXd x(5);
+    x.setZero();
+    Example polynomial(x);
+    GradientDescent gd;
+    gd.SetCostFunction(&polynomial);
+    gd.SetEpsilon(1e-6);
+    gd.SetC(0.5);
+    gd.SetTau(1.0);
+    gd.SetMaxIters(10000);
+    gd.SetVerbose(false); // 过程不打印
+    auto res = gd.Solve();
+    Eigen::Matrix<double, 5, 1> true_result;
+    true_result.setZero();
+    EXPECT_NEAR((res - true_result).norm(), 0, 1e-3);
+}
+
 TEST(TestUFreeOpt, TestSGDRosenbrock2d)
 {
     Eigen::VectorXd x(2);
@@ -40,3 +58,4 @@ TEST(TestUFreeOpt, TestSGDPolynomial)
     Eigen::Vector2d true_result = {1.0, 1.0};
     EXPECT_NEAR((res - true_result).norm(), 0, 1e-3);
 }
+

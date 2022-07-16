@@ -7,8 +7,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC -std=c++17 -g -O3 -fopenmp -pthrea
 # 不生成警告信息: debug阶段尽量不要使用
 add_definitions(-w)
 
-
-
 option(BUILD_TEST "Build all tests." ON)
 if(BUILD_TEST)
   find_package(GTest REQUIRED)

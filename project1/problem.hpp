@@ -123,7 +123,7 @@ public:
 
 /**
  * @brief :
- *      待优化求解的多项式函数, 继承自CostFunction基类，仅有两维便于可视化
+ *      待优化求解的Rosenbrock函数, 继承自CostFunction基类，仅有两维便于可视化
  * @param :
  *      double* param: 初值;
  */

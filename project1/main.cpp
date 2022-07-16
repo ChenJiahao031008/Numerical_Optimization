@@ -23,8 +23,8 @@ int main(int argc, char** argv)
     Rosenbrock2dExample rosenbrock(x);
     GradientDescent gd;
     gd.SetCostFunction(&rosenbrock);
-    gd.SetEpsilon(1e-6);
-    gd.SetC(0.01);
+    gd.SetEpsilon(1e-3);
+    gd.SetC(0.1);
     gd.SetTau(1.0);
     auto res = gd.Solve(outfile);
     AINFO << "result = [" << res.transpose() << "]";
