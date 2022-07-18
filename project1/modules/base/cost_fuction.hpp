@@ -6,25 +6,24 @@
 
 namespace modules::optimization{
 
+template <typename _Scalar, int _Rows>
 class CostFunction
 {
-protected:
-    const int N;
-
-    Eigen::VectorXd x;
-
+public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+    const int N;
+    Eigen::Matrix<_Scalar, _Rows, 1> x;
 
 public:
-    CostFunction(Eigen::VectorXd &param) : N(param.rows()), x(param){};
+    CostFunction(const Eigen::Matrix<_Scalar, _Rows, 1> &param) : N(param.rows()), x(param){};
 
-    virtual ~CostFunction() {};
+    virtual ~CostFunction()=default;
 
-    virtual double ComputeFunction(const Eigen::VectorXd &x) = 0;
+    virtual double ComputeFunction(const Eigen::Matrix<_Scalar, _Rows, 1> &x) = 0;
 
-    virtual Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) = 0;
+    virtual Eigen::Matrix<_Scalar, _Rows, 1> ComputeJacobian(const Eigen::Matrix<_Scalar, _Rows, 1> &x) = 0;
 
-    Eigen::VectorXd GetInitParam() { return x; };
+    Eigen::Matrix<_Scalar, _Rows, 1> GetInitParam() { return x; };
 
     int GetParamSize() { return N; };
 };

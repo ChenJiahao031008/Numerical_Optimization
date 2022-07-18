@@ -25,8 +25,6 @@ function clean_project(){
 }
 
 
-
-
 function main() {
     local cmd="$1"
     shift

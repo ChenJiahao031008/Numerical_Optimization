@@ -12,17 +12,18 @@ using namespace modules::optimization;
  * @param :
  *      double* param: 初值;
  */
-class Rosenbrock : public CostFunction
+template <int _Rows>
+class Rosenbrock : public CostFunction<double, _Rows>
 {
 public:
-    Rosenbrock(Eigen::VectorXd &param) : CostFunction(param){};
+    Rosenbrock(const Eigen::Matrix<double, _Rows, 1> &param) : CostFunction<double, _Rows>(param){};
 
     ~Rosenbrock() = default;
 
-    double ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::Matrix<double, _Rows, 1> &x) override
     {
         double result = 0;
-        for (size_t i = 0; i < N - 1; ++i)
+        for (size_t i = 0; i < x.rows() - 1; ++i)
         {
             double part_1 = x[i + 1] - x[i] * x[i];
             double part_2 = 1 - x[i];
@@ -31,16 +32,16 @@ public:
         return result;
     }
 
-    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::Matrix<double, _Rows, 1> ComputeJacobian(const Eigen::Matrix<double, _Rows, 1> &x) override
     {
-        Eigen::VectorXd jacobian(x.rows());
-        for (size_t i = 0; i < N; ++i)
+        Eigen::Matrix<double, _Rows, 1> jacobian(x.rows());
+        for (size_t i = 0; i < x.rows(); ++i)
         {
             if (i == 0)
             {
                 jacobian(i, 0) = -400 * x[i] * (x[i + 1] - x[i] * x[i]) - 2 * (1 - x[i]);
             }
-            else if (i == N - 1)
+            else if (i == x.rows() - 1)
             {
                 jacobian(i, 0) = 200 * (x[i] - x[i - 1] * x[i - 1]);
             }
@@ -59,17 +60,18 @@ public:
  * @param :
  *      double* param: 初值;
  */
-class Rosenbrock2 : public CostFunction
+template <int _Rows>
+class Rosenbrock2 : public CostFunction<double, _Rows>
 {
 public:
-    Rosenbrock2(Eigen::VectorXd &param) : CostFunction(param){};
+    Rosenbrock2(const Eigen::Matrix<double, _Rows, 1> &param) : CostFunction<double, _Rows>(param){};
 
     ~Rosenbrock2() = default;
 
-    double ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::Matrix<double, _Rows, 1> &x) override
     {
         double result = 0;
-        for (size_t i = 0; i < N / 2; ++i)
+        for (size_t i = 0; i < x.rows() / 2; ++i)
         {
             double part_1 = x[2 * i] * x[2 * i] - x[2 * i + 1];
             double part_2 = x[2 * i] - 1;
@@ -78,11 +80,11 @@ public:
         return result;
     }
 
-    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::Matrix<double, _Rows, 1> ComputeJacobian(const Eigen::Matrix<double, _Rows, 1> &x) override
     {
-        Eigen::VectorXd jacobian(x.rows());
+        Eigen::Matrix<double, _Rows, 1> jacobian(x.rows());
         jacobian.setZero();
-        for (size_t i = 0; i < N / 2; i++)
+        for (size_t i = 0; i < x.rows() / 2; i++)
         {
             jacobian(2 * i, 0) = 400 * x[2 * i] * (x[2 * i] * x[2 * i] - x[2 * i + 1]) + 2 * (x[2 * i] - 1);
             jacobian(2 * i + 1, 0) = -200 * (x[2 * i] * x[2 * i] - x[2 * i + 1]);
@@ -97,24 +99,24 @@ public:
  * @param :
  *      double* param: 初值;
  */
-class Example : public CostFunction
+class Example : public CostFunction<double, 2>
 {
 
 public:
-    Example(Eigen::VectorXd &param) : CostFunction(param){};
+    Example(Eigen::Vector2d &param) : CostFunction<double, 2>(param){};
 
     ~Example() = default;
 
-    double ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::Vector2d &x) override
     {
         double result = 0;
         result = x[0] * x[0] + 2 * x[1] * x[1] - 2 * x[0] * x[1] - 2 * x[1];
         return result;
     }
 
-    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::Vector2d ComputeJacobian(const Eigen::Vector2d &x) override
     {
-        Eigen::VectorXd jacobian(x.rows());
+        Eigen::Vector2d jacobian(x.rows());
         jacobian(0, 0) = 2 * x[0] - 2 * x[1];
         jacobian(1, 0) = 4 * x[1] - 2 * x[0] - 2;
         return jacobian;
@@ -127,14 +129,14 @@ public:
  * @param :
  *      double* param: 初值;
  */
-class Rosenbrock2dExample : public CostFunction
+class Rosenbrock2dExample : public CostFunction<double, 2>
 {
 public:
-    Rosenbrock2dExample(Eigen::VectorXd &param) : CostFunction(param){};
+    Rosenbrock2dExample(Eigen::Vector2d &param) : CostFunction<double, 2>(param){};
 
-    ~Rosenbrock2dExample() = default;
+    ~Rosenbrock2dExample()=default;
 
-    double ComputeFunction(const Eigen::VectorXd &x) override
+    double ComputeFunction(const Eigen::Vector2d &x) override
     {
         double result = 0;
         double part_1 = x[0] * x[0] - x[1];
@@ -143,9 +145,9 @@ public:
         return result;
     }
 
-    Eigen::VectorXd ComputeJacobian(const Eigen::VectorXd &x) override
+    Eigen::Vector2d ComputeJacobian(const Eigen::Vector2d &x) override
     {
-        Eigen::VectorXd jacobian(x.rows());
+        Eigen::Vector2d jacobian(x.rows());
         jacobian(0, 0) = -2 * (1 - x[0]) - 400 * x[0] * ( x[1] - x[0] * x[0] );
         jacobian(1, 0) = 200 * (x[1] - x[0] * x[0]);
         return jacobian;

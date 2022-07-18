@@ -2,7 +2,7 @@
 #include <iostream>
 #include "logger.hpp"
 
-#define LOG_CORE_DUMP_CAPTURE
+// #define LOG_CORE_DUMP_CAPTURE
 namespace common {
 
 Logger::Logger(int &argsize, char**& program) {
