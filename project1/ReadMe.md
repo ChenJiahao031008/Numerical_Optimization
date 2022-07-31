@@ -1,5 +1,7 @@
 ## Project 1: Linear-search Steepest Gradient Descent
 
+From: https://github.com/ChenJiahao031008/Numerical_Optimization
+
 ### 1 Dependency
 
 ```
